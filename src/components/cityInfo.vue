@@ -1,6 +1,6 @@
 <template>
   <div class="displayContainer">
-    <h2 style="font-weight: 500">Tokyo</h2>
+    <h2 style="font-weight: 500">{{props.cityName || "Tokyo"}}</h2>
     <p style="font-size: 14px; font-weight: 300">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ea amet rerum porro fugit
       dignissimos et debitis eos, vel aliquam ex molestiae sit ipsum quis necessitatibus? A incidunt
@@ -9,7 +9,12 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import defineProps from 'vue';
+const props = defineProps({
+  cityName: String
+});
+</script>
 
 <style scoped>
 .displayContainer {

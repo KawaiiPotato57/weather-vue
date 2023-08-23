@@ -1,10 +1,10 @@
 <template>
   <div>
     <searchBarVue />
-    <tempDisplaySideVue />
+    <tempDisplaySideVue :cityDataArr="props.cityDataArr" />
     <intensityDisplayVue />
     <sideChartVue />
-    <cityInfoVue />
+    <cityInfoVue :cityName="props.cityDataArr[0]" />
   </div>
 </template>
 
@@ -14,7 +14,13 @@ import intensityDisplayVue from './intensityDisplay.vue';
 import searchBarVue from './searchBar.vue';
 import sideChartVue from './sideChart.vue';
 import tempDisplaySideVue from './tempDisplaySide.vue';
-cityInfoVue
+import defineProps from 'vue';
+
+const props = defineProps({
+  cityDataArr: []
+});
+console.log('The city name ', props.cityDataArr[0]);
+// console.log('The Sidebar', cityData.value.location.name);
 </script>
 
 <style scoped></style>

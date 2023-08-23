@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="sideBar">
-      <sideBarVue />
+      <sideBarVue :cityDataArr="cityDataArr" />
     </div>
     <div class="mainDisplay">
-      <mainViewVue />
+      <mainViewVue :cityDataArr="cityDataArr" />
     </div>
   </div>
 </template>
@@ -12,8 +12,36 @@
 <script setup lang="ts">
 import mainViewVue from '../components/mainView.vue';
 import sideBarVue from '../components/sideBar.vue';
+import { ref, onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
+const store = useStore();
 
-sideBarVue;
+// const avgTemps = computed(() => {
+//   // const forecastData = store.state.foreCast.forecast;
+//   const forecastRes = store.state.foreCast;
+//   const forecastData = forecastRes.forecast;
+
+//   const temperatures = forecastData.forecastday.map((dayObject) => dayObject.day.avgtemp_c);
+//   temperatures.push(Math.floor(Math.random() * (34 - 20 + 1) + 20)); // Add a dummy value at the end
+//   console.log('Computed here');
+//   return temperatures;
+// });
+
+const cityDataArr = computed(() => {
+  const selectedCityWeather = store.state.selectedCityWeather;
+  if (selectedCityWeather) {
+    console.log('wewfwefwefwef', selectedCityWeather.current.condition.text);
+    return [
+      selectedCityWeather.location.name,
+      selectedCityWeather.current.temp_c,
+      selectedCityWeather.current.wind_dir,
+      selectedCityWeather.current.wind_mph,
+      selectedCityWeather.current.uv,
+      selectedCityWeather.current.condition.text
+    ];
+  }
+  return [];
+});
 </script>
 
 <style scoped>

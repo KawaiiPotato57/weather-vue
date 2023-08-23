@@ -26,32 +26,47 @@
 </template>
 
 <script setup lang="ts">
-import { Search, Odometer } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-
-const state = ref('')
-
-const cities = ['New York', 'London', 'Paris', 'Tokyo', 'Sydney']
+import { Search, Odometer } from '@element-plus/icons-vue';
+import { ref, onMounted, onUpdated } from 'vue';
+import { useStore } from 'vuex';
+const state = ref('Tokyo');
+const store = useStore();
+const cityData = ref({});
+let cities = null;
+onMounted(() => {
+  store.dispatch('fetchWeather').then((data: {}) => {
+    cities = store.getters.cityNames;
+  });
+  store.dispatch('fetchForeCast', state.value);
+});
 
 const querySearch = (queryString: string, cb) => {
+  console.log('Type : ', cities);
   const results = cities.filter(
     (city) => city.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-  )
-  cb(results.map((value) => ({ value }))) // Wrapping cities in objects with 'value' property
-}
+  );
+  cb(results.map((value) => ({ value }))); // Wrapping cities in objects with 'value' property
+};
 
 const handleSelect = (item) => {
-  console.log(item)
-}
+  state.value = item.value;
+};
+onUpdated(() => {
+  console.log('THE ITEMS', state.value);
+  store.dispatch('setSelectedCityWeather', state.value);
+
+  cityData.value = store.state.selectedCityWeather;
+  console.log('THE CITY DATA: ', store.state.selectedCityWeather);
+});
 
 const handleIconClick = (ev: Event) => {
-  console.log(ev)
-}
+  console.log(ev);
+};
 </script>
 
 <style>
-.searchDiv{
-    padding: 14px;
+.searchDiv {
+  padding: 14px;
 }
 .transparent .el-input__inner {
   color: rgb(189, 189, 189);
