@@ -1,18 +1,34 @@
 <template>
   <div class="mainContainer">
-    <foreCastMainVue :cityDataArr="cityDataArr" />
-    <ForeCastDetailsMain :temp="cityDataArr[1]" />
+    <foreCastMainVue :cityDataArr="props.cityDataArr" />
+    <ForeCastDetailsMain :temp="props.cityDataArr?.[1]" />
     <ChartMain />
-    <div class="citiesCards">
-      <tempCardsMainVue
-        v-for="item in cityDetails"
-        :key="item.name"
-        :temperature="item.temperature"
-        :city="item.name"
-        :line1Length="item.line1Length"
-        :line2Length="item.line2Length"
-        :lineColor="item.lineColor"
-      />
+    <!-- <div class="tempCardContainer">
+      <div class="citiesCards">
+        <tempCardsMainVue
+          v-for="item in cityDetails"
+          :key="item.name"
+          :temperature="item.temperature"
+          :city="item.name"
+          :line1Length="item.line1Length"
+          :line2Length="item.line2Length"
+          :lineColor="item.lineColor"
+        />
+      </div>
+    </div> -->
+
+    <div class="tempCardContainer">
+      <div class="citiesCards">
+        <div class="cardWrapper" v-for="item in cityDetails" :key="item.name">
+          <tempCardsMainVue
+            :temperature="item.temperature"
+            :city="item.name"
+            :line1Length="item.line1Length"
+            :line2Length="item.line2Length"
+            :lineColor="item.lineColor"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +39,7 @@ import ForeCastDetailsMain from './foreCastDetailsMain.vue';
 import foreCastMainVue from './foreCastMain.vue';
 import tempCardsMainVue from './tempCardsMain.vue';
 import cities from './citiesData';
-import { defineProps, ref, computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -51,7 +67,23 @@ const cityDetails = computed(() => {
 }
 .citiesCards {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 75px;
+}
+
+.cardWrapper {
+   /* This will make each card take up half the width minus the gap */
+}
+
+@media (max-width: 1200px) {
+  .mainContainer {
+    padding: 18px;
+  }
+  .citiesCards {
+    gap: 60px;
+  }
+  .cardWrapper {
+    flex: 1 1 calc(50% - 60px); /* Adjusting the width for responsive design */
+  }
 }
 </style>

@@ -89,4 +89,44 @@ const cityDataArr = computed(() => {
 .mainDisplay::-webkit-scrollbar-thumb:hover {
   background: #333333; /* Background color when hovering over the thumb */
 }
+
+@media (max-width: 1200px) {
+  .sideBar {
+    width: 80%; /* Full width for small screens */
+    height: auto; /* Allow content to define height */
+  }
+  .mainDisplay {
+    width: 100%; /* Full width for small screens */
+    height: auto; /* Allow content to define height */
+  }
+}
+/*391 661*/
+
+/* For standard tablets and mobile landscape */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Change layout to vertical */
+  }
+  .sideBar {
+    width: 100%; /* Full width for small screens */
+    height: auto; /* Allow content to define height */
+  }
+  .mainDisplay {
+    display: none; /* Allow content to define height */
+  }
+}
+
+/* For mobile devices in portrait orientation */
+@media (max-width: 576px) {
+  .container {
+    flex-direction: column; /* Change layout to vertical */
+  }
+  .sideBar {
+    width: 100%; /* Full width for small screens */
+    height: auto; /* Allow content to define height */
+  }
+  .mainDisplay {
+    display: none; /* Allow content to define height */
+  }
+}
 </style>

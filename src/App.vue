@@ -1,55 +1,3 @@
-<!-- <script setup lang="ts">
-import HomeViewVue from './views/HomeView.vue';
-import { useStore } from 'vuex';
-import { onBeforeMount, ref, computed, onMounted } from 'vue';
-
-const store = useStore();
-const getWeather = () => {
-  store.dispatch('fetchWeather').then((data: {}) => {
-    if (store.state.loading) {
-      const selectedCityWeather = store.state.weatherCondition;
-      console.log('THE SELECTED in Mounted', selectedCityWeather);
-
-      if (selectedCityWeather) {
-        tempBg.value = selectedCityWeather;
-      }
-      console.log('THE WEATHER CONDITION: ', tempBg.value);
-    } else {
-      console.log('Failed the test');
-    }
-  });
-};
-
-onBeforeMount(() => {
-  getWeather();
-});
-const tempBg = ref('Lol sunny'); // default value
-
-onMounted(() => {});
-
-const backgroundUrl = computed(() => {
-  const weatherCondition = tempBg.value; // Adjust this to match the actual state property
-  let imageUrl;
-
-  switch (true) {
-    case weatherCondition.includes('stormy'):
-      imageUrl = './assets/weatherBg/stormy.jpg';
-      break;
-    case weatherCondition.includes('sunny'):
-      imageUrl = './assets/weatherBg/stormy.jpg';
-      break;
-    case weatherCondition.includes('cloudy'):
-      imageUrl = './assets/weatherBg/stormy.jpg';
-      break;
-    // Add more cases as needed
-    default:
-      imageUrl = './assets/weatherBg/stormy.jpg'; // Default background if no match
-  }
-
-  return imageUrl;
-});
-</script> -->
-
 <script setup lang="ts">
 import HomeViewVue from './views/HomeView.vue';
 import { useStore } from 'vuex';
@@ -80,8 +28,8 @@ const getWeather = async () => {
 
 onMounted(getWeather);
 onUpdated(() => {
-  console.log("BEFORE UPDATE")
-})
+  console.log('BEFORE UPDATE');
+});
 const backgroundUrl = computed(() => {
   const weatherCondition = store.state.weatherCondition.toLowerCase(); // Convert to lower case to match the cases
   let imageUrl;
@@ -216,6 +164,44 @@ background: url('./assets/weatherBg/stormy.jpg') repeat center center;
   }
   100% {
     border-top-color: red;
+  }
+}
+
+/* For large tablets and smaller laptops */
+@media (max-width: 1200px) {
+  .glass-container {
+    background-size: 90vh; /* Slightly reduce the background size */
+  }
+
+  .loader {
+    width: 40px;
+    height: 40px; /* Slightly reduce the loader size */
+  }
+}
+
+/* For standard tablets and mobile landscape */
+@media (max-width: 768px) {
+  .glass-container {
+    background-size: 80vh; /* Further reduce the background size */
+    border-radius: 8px; /* Adjust the border radius */
+  }
+
+  .loader {
+    width: 35px;
+    height: 35px; /* Further reduce the loader size */
+  }
+}
+
+/* For mobile devices in portrait orientation */
+@media (max-width: 576px) {
+  .glass-container {
+    background-size: 70vh; /* Further reduce the background size for small screens */
+    border-radius: 5px; /* Adjust the border radius for small screens */
+  }
+
+  .loader {
+    width: 30px;
+    height: 30px; /* Reduce the loader size for small screens */
   }
 }
 </style>

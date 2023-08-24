@@ -6,7 +6,8 @@
 import { onMounted, ref, watch, computed, type ComputedRef } from 'vue';
 import * as echarts from 'echarts';
 import { useStore } from 'vuex';
-
+const widthRef = ref('');
+const heightRef = ref('');
 const props = defineProps({
   width: {
     type: [String, Number],
@@ -20,6 +21,8 @@ const props = defineProps({
   maxHeight: String,
   border: String
 });
+widthRef.value = props.maxWidth;
+heightRef.value = props.maxHeight;
 const store = useStore();
 
 const chartContainer = ref<HTMLElement | null>(null);
@@ -35,14 +38,8 @@ const dates = Array.from({ length: 4 }, (_, index) => {
   date.setDate(date.getDate() + index);
   return formatter.format(date);
 });
-// let avgTempsComputed: ComputedRef<any> | null = null;
 let fetchOlala: ComputedRef<any> | null = null;
 
-// if (store.state.loading) {
-//   avgTempsComputed = computed(() => {
-//     return store.getters.forecastTemps;
-//   });
-// }
 if (store.state.loading) {
   fetchOlala = computed(() => {
     const forecastRes = store.state.foreCast;
@@ -102,14 +99,42 @@ if (fetchOlala) {
     }
   });
 }
+
+watch(
+  () => props.maxWidth,
+  (newMaxWidth) => {
+    widthRef.value = newMaxWidth;
+
+    resizeChart();
+  }
+);
+
+// Watch maxHeight prop
+watch(
+  () => props.maxHeight,
+  (newMaxHeight) => {
+    heightRef.value = newMaxHeight;
+    resizeChart();
+  }
+);
+
+function resizeChart() {
+  if (chartInstance) {
+    console.log('HERE IN RESIZE');
+    console.log('Height: ', heightRef.value);
+    console.log('WIdth: ', widthRef.value);
+
+    chartInstance.resize({
+      width: widthRef.value,
+      height: heightRef.value
+    });
+  }
+}
 onMounted(() => {
   if (chartContainer.value) {
     chartInstance = echarts.init(chartContainer.value);
     chartInstance.setOption(chartOptions.value);
-    chartInstance.resize({
-      width: props.maxWidth,
-      height: props.maxHeight
-    });
+    resizeChart();
   }
 });
 </script>

@@ -40,7 +40,7 @@ onMounted(() => {
   store.dispatch('fetchForeCast', state.value);
 });
 
-const querySearch = (queryString: string, cb: (arg0: { value: String; }[]) => void) => {
+const querySearch = (queryString: string, cb: (arg0: { value: String }[]) => void) => {
   console.log('Type : ', cities);
   const results = cities.filter(
     (city) => city.toLowerCase().indexOf(queryString.toLowerCase()) === 0
@@ -48,7 +48,7 @@ const querySearch = (queryString: string, cb: (arg0: { value: String; }[]) => vo
   cb(results.map((value) => ({ value }))); // Wrapping cities in objects with 'value' property
 };
 
-const handleSelect = (item: { value: string; }) => {
+const handleSelect = (item: { value: string }) => {
   state.value = item.value;
 };
 onUpdated(() => {
@@ -92,5 +92,70 @@ const handleIconClick = (ev: Event) => {
   line-height: normal;
   padding: 7px;
   color: rgb(31, 31, 31);
+}
+
+@media (max-width: 1200px) {
+  .searchDiv {
+    padding: 12px;
+  }
+  .transparent .el-input__inner {
+    width: 220px;
+    height: 45px;
+  }
+  .my-autocomplete.el-popper li {
+    padding: 7px;
+    margin: 7px;
+  }
+}
+
+/* Medium screens, typically tablets */
+@media (max-width: 992px) {
+  .searchDiv {
+    padding: 10px;
+  }
+  .transparent .el-input__inner {
+    width: 200px;
+    height: 40px;
+  }
+  .my-autocomplete.el-popper li {
+    padding: 6px;
+    margin: 6px;
+  }
+}
+
+/* Small screens, typically large mobile devices */
+@media (max-width: 768px) {
+  .searchDiv {
+    padding: 8px;
+  }
+  .transparent .el-input__inner {
+    width: 180px;
+    height: 35px;
+  }
+  .my-autocomplete.el-popper li {
+    padding: 5px;
+    margin: 5px;
+  }
+}
+
+/* Extra-small screens, typically small mobile devices */
+@media (max-width: 576px) {
+  .searchDiv {
+    padding: 6px;
+  }
+  .transparent .el-input__inner {
+    width: 150px;
+    height: 30px;
+  }
+  .my-autocomplete.el-popper {
+    background-color: #0000004d;
+  }
+  .my-autocomplete.el-popper li {
+    padding: 4px;
+    margin: 4px;
+  }
+  .my-autocomplete.el-popper li:hover {
+    padding: 3px;
+  }
 }
 </style>

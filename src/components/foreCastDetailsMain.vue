@@ -1,24 +1,24 @@
 <template>
   <div class="detailsContainer">
-    <div>
+    <div class="icon-container">
       <el-icon>
         <PartlyCloudy />
       </el-icon>
       {{ formattedDate }}
     </div>
-    <div style="width: 30%; padding-top: 20px; text-align: justify">
-      <div style="width: 100%; overflow: hidden">
+    <div class="text-container">
+      <div class="ellipsis-container">
         <p class="ellipsis-text">
           Lorem ipsum dolor, sit amet consectetur adipisicingaaa adipisicingaaa adipisicingaaa v sit
           amet consectetur adipisicingaaa adipisicingaaa adipisicingaaa.
         </p>
       </div>
       <div class="detailsText">
-        <div style="width: 25%">
+        <div class="temperature-container">
           <p class="temperature padding-margin">{{ temp || '00' }}&deg;</p>
         </div>
-        <div style="width: 75%">
-          <p style="font-size: 12px; width: 100%">
+        <div class="description-container">
+          <p class="description-text">
             Lorem ipsum dolor, sit amet consectetur adipisicing. sit amet consectetur adipisicing.
             sit amet consectetur
           </p>
@@ -59,15 +59,34 @@ formattedDate.value = formattedDate.value.replace(' at', ' ');
   padding-top: 50px;
   color: aliceblue;
 }
+.icon-container {
+}
+.text-container {
+  width: 40%;
+  padding-top: 20px;
+  text-align: justify;
+}
+.ellipsis-container {
+  width: 100%;
+  overflow: hidden;
+}
 .temperature {
   font-size: 50px;
   font-weight: 400;
-  padding: 0;
-  margin: 0;
 }
 .detailsText {
   display: flex;
   flex-direction: row;
+}
+.temperature-container {
+  width: 25%;
+}
+.description-container {
+  width: 75%;
+}
+.description-text {
+  font-size: 12px;
+  width: 100%;
 }
 .padding-margin {
   padding-top: -500px;
@@ -87,5 +106,147 @@ formattedDate.value = formattedDate.value.replace(' at', ' ');
   white-space: normal;
   text-overflow: clip;
   overflow: visible;
+}
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .text-container {
+    width: 60%;
+    padding-top: 18px;
+    text-align: justify;
+  }
+  .ellipsis-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  .ellipsis-text {
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    color: rgb(126, 233, 233);
+  }
+  .description-text {
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+  }
+  .description-text:hover {
+    white-space: normal;
+    text-overflow: clip;
+    overflow: visible;
+  }
+  .temperature {
+    font-size: 36px;
+    font-weight: 400;
+  }
+  .padding-margin {
+    padding-top: -500px;
+    margin-top: -15px;
+    margin-left: 0px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .text-container {
+    width: 60%;
+    padding-top: 15px;
+    text-align: justify;
+  }
+  .ellipsis-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  .ellipsis-text {
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    color: rgb(126, 233, 233);
+  }
+  .description-text {
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+  }
+  .description-text:hover {
+    white-space: normal;
+    text-overflow: clip;
+    overflow: visible;
+  }
+  .temperature {
+    font-size: 30px;
+    font-weight: 400;
+  }
+  .padding-margin {
+    padding-top: 3px;
+    margin-top: -15px;
+    margin-left: 0px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-container {
+    width: 100%;
+    padding-top: 12px;
+    text-align: justify;
+  }
+  .ellipsis-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  .ellipsis-text {
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    color: rgb(126, 233, 233);
+  }
+  .description-text {
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+  }
+  .description-text:hover {
+    white-space: normal;
+    text-overflow: clip;
+    overflow: visible;
+  }
+  .temperature {
+    font-size: 25px;
+    font-weight: 400;
+  }
+  .padding-margin {
+    padding-top: 5px;
+    margin-top: -15px;
+    margin-left: 0px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .text-container {
+    width: 30%;
+    padding-top: 10px;
+    text-align: justify;
+  }
+  .ellipsis-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  .ellipsis-text {
+    font-size: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    color: rgb(126, 233, 233);
+  }
 }
 </style>
