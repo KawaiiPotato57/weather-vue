@@ -16,6 +16,7 @@ type WeatherState = {
   selectedCityWeather: object | null;
   loading: boolean;
   foreCastLoading: boolean;
+  weatherCondition: String;
 };
 
 const state: WeatherState = {
@@ -23,7 +24,8 @@ const state: WeatherState = {
   foreCast: null,
   selectedCityWeather: null,
   loading: false,
-  foreCastLoading: false
+  foreCastLoading: false,
+  weatherCondition: ''
 };
 
 export default createStore({
@@ -44,6 +46,9 @@ export default createStore({
     },
     setForeCastLoading(state, loading: boolean) {
       state.foreCastLoading = loading; // Mutation to handle loading state
+    },
+    setWeatherCondition(state, condition: String) {
+      state.weatherCondition = condition; // Mutation to handle loading state
     }
   },
   actions: {
@@ -108,6 +113,7 @@ export default createStore({
         const cityWeather = state.weather[cityName];
         console.log('Setting  in set', state.weather);
         commit('setSelectedCityWeather', cityWeather);
+        commit('setWeatherCondition', (cityWeather as any).current.condition.text);
       } catch (error) {
         console.error('OLALA ERROR', error);
       }
@@ -121,20 +127,30 @@ export default createStore({
     // cityNames: (state) => state.weather ? state.weather.map(cityWeather => cityWeather.name) : []
     cityNames: (state) => {
       return Object.values(state.weather).map((cityWeather) =>
-        cityWeather ? cityWeather.location.name : null
+        cityWeather ? (cityWeather as any).location.name : null
       );
     },
     forecastTemps: (state) => {
       console.log(state.foreCast, 'dsfdfsdfdsf');
       const forecastRes = state.foreCast;
-      const forecastData = forecastRes.forecast;
+      const forecastData = (forecastRes as any).forecast;
       console.log('Forecast data in getters: ', forecastRes);
 
-      const temperatures = forecastData.forecastday.map((dayObject) => dayObject.day.avgtemp_c);
+      const temperatures = forecastData.forecastday.map((dayObject: { day: { avgtemp_c: any; }; }) => dayObject.day.avgtemp_c);
       temperatures.push(Math.floor(Math.random() * (34 - 20 + 1) + 20));
-      const finalArr = temperatures.map((item) => parseInt(item));
+      const finalArr = temperatures.map((item: string) => parseInt(item));
       console.log('Temperatures in getters: ', finalArr);
       return finalArr;
+    },
+    weatherCondition: (state) => {
+      const selectedCityWeather = state.selectedCityWeather;
+
+      console.log('THE SELCETED getter', selectedCityWeather);
+      if (selectedCityWeather) {
+        console.log('wewfwefwefwef', (selectedCityWeather as any).current.condition.text);
+        return (selectedCityWeather as any).current.condition.text;
+      }
+      return 'Lol sunny';
     }
   }
 });

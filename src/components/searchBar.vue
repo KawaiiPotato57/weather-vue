@@ -32,15 +32,15 @@ import { useStore } from 'vuex';
 const state = ref('Tokyo');
 const store = useStore();
 const cityData = ref({});
-let cities = null;
+let cities: String[] = [];
 onMounted(() => {
-  store.dispatch('fetchWeather').then((data: {}) => {
+  store.dispatch('fetchWeather').then(() => {
     cities = store.getters.cityNames;
   });
   store.dispatch('fetchForeCast', state.value);
 });
 
-const querySearch = (queryString: string, cb) => {
+const querySearch = (queryString: string, cb: (arg0: { value: String; }[]) => void) => {
   console.log('Type : ', cities);
   const results = cities.filter(
     (city) => city.toLowerCase().indexOf(queryString.toLowerCase()) === 0
@@ -48,7 +48,7 @@ const querySearch = (queryString: string, cb) => {
   cb(results.map((value) => ({ value }))); // Wrapping cities in objects with 'value' property
 };
 
-const handleSelect = (item) => {
+const handleSelect = (item: { value: string; }) => {
   state.value = item.value;
 };
 onUpdated(() => {

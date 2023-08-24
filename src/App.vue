@@ -1,21 +1,134 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import HomeViewVue from './views/HomeView.vue';
 import { useStore } from 'vuex';
-import { onMounted, onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, computed, onMounted } from 'vue';
 
 const store = useStore();
-
 const getWeather = () => {
-  store.dispatch('fetchWeather').then((data: {}) => {});
+  store.dispatch('fetchWeather').then((data: {}) => {
+    if (store.state.loading) {
+      const selectedCityWeather = store.state.weatherCondition;
+      console.log('THE SELECTED in Mounted', selectedCityWeather);
+
+      if (selectedCityWeather) {
+        tempBg.value = selectedCityWeather;
+      }
+      console.log('THE WEATHER CONDITION: ', tempBg.value);
+    } else {
+      console.log('Failed the test');
+    }
+  });
 };
 
 onBeforeMount(() => {
   getWeather();
 });
+const tempBg = ref('Lol sunny'); // default value
+
+onMounted(() => {});
+
+const backgroundUrl = computed(() => {
+  const weatherCondition = tempBg.value; // Adjust this to match the actual state property
+  let imageUrl;
+
+  switch (true) {
+    case weatherCondition.includes('stormy'):
+      imageUrl = './assets/weatherBg/stormy.jpg';
+      break;
+    case weatherCondition.includes('sunny'):
+      imageUrl = './assets/weatherBg/stormy.jpg';
+      break;
+    case weatherCondition.includes('cloudy'):
+      imageUrl = './assets/weatherBg/stormy.jpg';
+      break;
+    // Add more cases as needed
+    default:
+      imageUrl = './assets/weatherBg/stormy.jpg'; // Default background if no match
+  }
+
+  return imageUrl;
+});
+</script> -->
+
+<script setup lang="ts">
+import HomeViewVue from './views/HomeView.vue';
+import { useStore } from 'vuex';
+import { ref, onMounted, computed, onUpdated } from 'vue';
+import stormy from './assets/weatherBg/stormy.jpg';
+import clear from './assets/weatherBg/clear.jpg';
+import sunny from './assets/weatherBg/sunny.jpg';
+import lightRain from './assets/weatherBg/lightRain.jpg';
+import cloudy from './assets/weatherBg/cloudy.jpg';
+import overcast from './assets/weatherBg/overcast.jpg';
+
+const store = useStore();
+const tempBg = ref<string>(''); // default value
+
+const getWeather = async () => {
+  await store.dispatch('fetchWeather');
+  if (store.state.loading) {
+    const selectedCityWeather = store.state.weatherCondition;
+    console.log('THE WEATHER before: ', selectedCityWeather);
+
+    tempBg.value = selectedCityWeather;
+
+    console.log('THE WEATHER CONDITION: ', tempBg.value);
+  } else {
+    console.log('Failed the test');
+  }
+};
+
+onMounted(getWeather);
+onUpdated(() => {
+  console.log("BEFORE UPDATE")
+})
+const backgroundUrl = computed(() => {
+  const weatherCondition = store.state.weatherCondition.toLowerCase(); // Convert to lower case to match the cases
+  let imageUrl;
+
+  switch (true) {
+    case weatherCondition.includes('stormy' || 'thunder' || 'thundery'):
+      imageUrl = stormy;
+      break;
+    case weatherCondition.includes('clear'):
+      imageUrl = clear;
+      break;
+
+    case weatherCondition.includes('sunny'):
+      imageUrl = sunny;
+      break;
+
+    case weatherCondition.includes('light' || 'rain'):
+      imageUrl = lightRain;
+      break;
+    case weatherCondition.includes('overcast'):
+      imageUrl = overcast;
+      break;
+
+    case weatherCondition.includes('cloudy'):
+      imageUrl = cloudy;
+      break;
+    // Add more cases as needed
+    default:
+      imageUrl = clear; // Default background if no match
+  }
+  console.log('THE IMAGE', imageUrl);
+
+  return imageUrl;
+});
 </script>
 
 <template>
-  <div v-if="store.state.loading" class="background">
+  <div
+    :style="{
+      background: 'url(' + backgroundUrl + ') repeat center center',
+      'background-size': 'cover',
+      width: '100%',
+      height: '100vh'
+    }"
+    class="background1"
+    v-if="store.state.loading"
+  >
     <div class="glass-container">
       <HomeViewVue />
     </div>
@@ -24,11 +137,12 @@ onBeforeMount(() => {
     <div class="loader"></div>
   </div>
 </template>
+<!--
+background: url('./assets/weatherBg/stormy.jpg') repeat center center;
+  background-size: cover; -->
 
 <style scoped>
-.background {
-  background: url('./assets/weatherBg/stormy.jpg') repeat center center;
-  background-size: cover;
+.background1 {
   width: 100%;
   height: 100vh;
   display: flex;

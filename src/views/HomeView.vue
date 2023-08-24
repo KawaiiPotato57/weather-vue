@@ -12,20 +12,9 @@
 <script setup lang="ts">
 import mainViewVue from '../components/mainView.vue';
 import sideBarVue from '../components/sideBar.vue';
-import { ref, onMounted, computed } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
-
-// const avgTemps = computed(() => {
-//   // const forecastData = store.state.foreCast.forecast;
-//   const forecastRes = store.state.foreCast;
-//   const forecastData = forecastRes.forecast;
-
-//   const temperatures = forecastData.forecastday.map((dayObject) => dayObject.day.avgtemp_c);
-//   temperatures.push(Math.floor(Math.random() * (34 - 20 + 1) + 20)); // Add a dummy value at the end
-//   console.log('Computed here');
-//   return temperatures;
-// });
 
 const cityDataArr = computed(() => {
   const selectedCityWeather = store.state.selectedCityWeather;

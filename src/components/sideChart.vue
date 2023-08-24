@@ -32,6 +32,7 @@ const borderRef = ref('2px solid rgb(55, 55, 55)');
 
 <style scoped>
 .sideChartContainer {
+  padding: 10px;
   margin: 10px;
 }
 </style>
