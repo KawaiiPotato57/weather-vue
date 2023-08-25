@@ -26,7 +26,8 @@ const cityDataArr = computed(() => {
       selectedCityWeather.current.wind_dir,
       selectedCityWeather.current.wind_mph,
       selectedCityWeather.current.uv,
-      selectedCityWeather.current.condition.text
+      selectedCityWeather.current.condition.text,
+      selectedCityWeather.current.condition.icon
     ];
   }
   return [];

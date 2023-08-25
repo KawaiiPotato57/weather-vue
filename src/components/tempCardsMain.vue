@@ -20,8 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 const props = defineProps({
   temperature: String,
   city: String,
@@ -63,7 +61,6 @@ const props = defineProps({
   margin-bottom: 5px;
 }
 
-/* Laptops and small screen – 769px — 1024px */
 @media (max-width: 1024px) {
   .tempCard {
     width: 48%; /* Two cards per row */
@@ -74,7 +71,6 @@ const props = defineProps({
   }
 }
 
-/* iPads and Tablets – 481px — 768px */
 @media (max-width: 768px) {
   .tempCard {
     width: 8%; /* One card per row */
@@ -85,7 +81,6 @@ const props = defineProps({
   }
 }
 
-/* Mobile Devices – 320px — 480px */
 @media (max-width: 480px) {
   .tempCard {
     width: 100%; /* One card per row */

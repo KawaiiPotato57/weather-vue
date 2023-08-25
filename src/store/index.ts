@@ -1,7 +1,10 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
-const cities = ['Osaka', 'Tokyo', 'Okinawa', 'Kyoto', 'Yokohama'];
+type CityName = 'Osaka' | 'Tokyo' | 'Okinawa' | 'Kyoto' | 'Yokohama';
+
+const cities: CityName[] = ['Osaka', 'Tokyo', 'Okinawa', 'Kyoto', 'Yokohama'];
+
 const coordinates = {
   Osaka: '34.6937, 135.5023',
   Tokyo: '35.6895, 139.6917',
@@ -136,7 +139,9 @@ export default createStore({
       const forecastData = (forecastRes as any).forecast;
       console.log('Forecast data in getters: ', forecastRes);
 
-      const temperatures = forecastData.forecastday.map((dayObject: { day: { avgtemp_c: any; }; }) => dayObject.day.avgtemp_c);
+      const temperatures = forecastData.forecastday.map(
+        (dayObject: { day: { avgtemp_c: any } }) => dayObject.day.avgtemp_c
+      );
       temperatures.push(Math.floor(Math.random() * (34 - 20 + 1) + 20));
       const finalArr = temperatures.map((item: string) => parseInt(item));
       console.log('Temperatures in getters: ', finalArr);

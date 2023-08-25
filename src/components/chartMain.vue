@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, onBeforeMount } from 'vue';
+import { ref, computed, onUnmounted, onBeforeMount } from 'vue';
 import LineChart from './LineChart.vue';
 
 const loading = computed(() => {

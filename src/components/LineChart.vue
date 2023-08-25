@@ -21,8 +21,9 @@ const props = defineProps({
   maxHeight: String,
   border: String
 });
-widthRef.value = props.maxWidth;
-heightRef.value = props.maxHeight;
+
+widthRef.value = props.maxWidth as string;
+heightRef.value = props.maxHeight as string;
 const store = useStore();
 
 const chartContainer = ref<HTMLElement | null>(null);
@@ -44,14 +45,12 @@ if (store.state.loading) {
   fetchOlala = computed(() => {
     const forecastRes = store.state.foreCast;
     const forecastData = forecastRes.forecast;
-    console.log('Forecast in New Computed: ', forecastRes.forecast);
 
     const temperatures = forecastData.forecastday.map(
       (dayObject: { day: { avgtemp_c: any } }) => dayObject.day.avgtemp_c
     );
     temperatures.push(Math.floor(Math.random() * (34 - 20 + 1) + 20));
     const finalArr = temperatures.map((item: string) => parseInt(item));
-    console.log('Temperatures in getters: ', finalArr);
     return finalArr;
   });
 }
@@ -103,8 +102,7 @@ if (fetchOlala) {
 watch(
   () => props.maxWidth,
   (newMaxWidth) => {
-    widthRef.value = newMaxWidth;
-
+    widthRef.value = newMaxWidth as string;
     resizeChart();
   }
 );
@@ -113,17 +111,13 @@ watch(
 watch(
   () => props.maxHeight,
   (newMaxHeight) => {
-    heightRef.value = newMaxHeight;
+    heightRef.value = newMaxHeight as string;
     resizeChart();
   }
 );
 
 function resizeChart() {
   if (chartInstance) {
-    console.log('HERE IN RESIZE');
-    console.log('Height: ', heightRef.value);
-    console.log('WIdth: ', widthRef.value);
-
     chartInstance.resize({
       width: widthRef.value,
       height: heightRef.value

@@ -99,7 +99,7 @@ const handleIconClick = (ev: Event) => {
     padding: 12px;
   }
   .transparent .el-input__inner {
-    width: 220px;
+    width: 310px;
     height: 45px;
   }
   .my-autocomplete.el-popper li {
@@ -114,7 +114,7 @@ const handleIconClick = (ev: Event) => {
     padding: 10px;
   }
   .transparent .el-input__inner {
-    width: 200px;
+    width: 250px;
     height: 40px;
   }
   .my-autocomplete.el-popper li {
@@ -127,10 +127,11 @@ const handleIconClick = (ev: Event) => {
 @media (max-width: 768px) {
   .searchDiv {
     padding: 8px;
+    padding-left: 50px;
   }
   .transparent .el-input__inner {
-    width: 180px;
-    height: 35px;
+    width: 420px;
+    height: 45px;
   }
   .my-autocomplete.el-popper li {
     padding: 5px;
@@ -142,10 +143,11 @@ const handleIconClick = (ev: Event) => {
 @media (max-width: 576px) {
   .searchDiv {
     padding: 6px;
+    padding-left: 30px;
   }
   .transparent .el-input__inner {
-    width: 150px;
-    height: 30px;
+    width: 350px;
+    height: 45px;
   }
   .my-autocomplete.el-popper {
     background-color: #0000004d;

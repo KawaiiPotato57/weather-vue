@@ -1,10 +1,11 @@
 <template>
   <div class="detailsContainer">
-    <div class="icon-container">
-      <el-icon>
+    <div class="date-container">
+      <el-icon v-if="!props.icon">
         <PartlyCloudy />
       </el-icon>
-      {{ formattedDate }}
+      <img v-if="props.icon" :src="props.icon" alt="" class="icon-container" />
+      <span class="date-text">{{ formattedDate }}</span>
     </div>
     <div class="text-container">
       <div class="ellipsis-container">
@@ -29,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 import { PartlyCloudy } from '@element-plus/icons-vue';
 const props = defineProps({
-  temp: String
+  temp: String,
+  icon: String
 });
 const formattedDate = ref('');
 function formatDate(date: Date): string {
@@ -59,7 +61,15 @@ formattedDate.value = formattedDate.value.replace(' at', ' ');
   padding-top: 50px;
   color: aliceblue;
 }
+.date-container {
+  display: flex;
+  align-items: center;
+}
+
 .icon-container {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
 }
 .text-container {
   width: 40%;

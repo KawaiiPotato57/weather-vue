@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  cityDataArr: []
+  cityDataArr: Array
 });
 </script>
 
