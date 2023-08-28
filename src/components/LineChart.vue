@@ -6,8 +6,8 @@
 import { onMounted, ref, watch, computed, type ComputedRef } from 'vue';
 import * as echarts from 'echarts';
 import { useStore } from 'vuex';
-const widthRef = ref('');
-const heightRef = ref('');
+const widthRef = ref(0);
+const heightRef = ref(0);
 const props = defineProps({
   width: {
     type: [String, Number],
@@ -22,8 +22,8 @@ const props = defineProps({
   border: String
 });
 
-widthRef.value = props.maxWidth as string;
-heightRef.value = props.maxHeight as string;
+widthRef.value = parseInt(props.maxWidth as string);
+heightRef.value = parseInt(props.maxHeight as string);
 const store = useStore();
 
 const chartContainer = ref<HTMLElement | null>(null);
@@ -102,7 +102,7 @@ if (fetchOlala) {
 watch(
   () => props.maxWidth,
   (newMaxWidth) => {
-    widthRef.value = newMaxWidth as string;
+    widthRef.value = parseInt(newMaxWidth as string);
     resizeChart();
   }
 );
@@ -111,7 +111,7 @@ watch(
 watch(
   () => props.maxHeight,
   (newMaxHeight) => {
-    heightRef.value = newMaxHeight as string;
+    heightRef.value = parseInt(newMaxHeight as string);
     resizeChart();
   }
 );
