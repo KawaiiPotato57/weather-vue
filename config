@@ -1,0 +1,15 @@
+
+Host github.com
+	HostName github.com
+	User Git
+	IdentityFile /c/Users/fd/.ssh/id_rsa_github
+
+Host gitlab.zixel.cn
+	HostName gitlab.zixel.cn
+	Port 32
+	User Git
+	IdentityFile /c/Users/fd/.ssh/id_ed25519
+
+
+
+

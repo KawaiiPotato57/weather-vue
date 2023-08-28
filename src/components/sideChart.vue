@@ -19,8 +19,6 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const loading = computed(() => {
-  console.log('Check in loading');
-
   return store.state.foreCastLoading;
 });
 
@@ -34,7 +32,10 @@ const maxHeightRef = ref('');
 // const width = ref(window.innerWidth);
 function resizeHandler() {
   const width = window.innerWidth;
-  if (width <= 490) {
+  if (width <= 320) {
+    maxWidthRef.value = '280px';
+    maxHeightRef.value = '220px';
+  } else if (width <= 490) {
     maxWidthRef.value = '340px';
     maxHeightRef.value = '240px';
   } else if (width <= 510) {

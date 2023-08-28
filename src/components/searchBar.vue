@@ -41,7 +41,6 @@ onMounted(() => {
 });
 
 const querySearch = (queryString: string, cb: (arg0: { value: String }[]) => void) => {
-  console.log('Type : ', cities);
   const results = cities.filter(
     (city) => city.toLowerCase().indexOf(queryString.toLowerCase()) === 0
   );
@@ -52,11 +51,9 @@ const handleSelect = (item: { value: string }) => {
   state.value = item.value;
 };
 onUpdated(() => {
-  console.log('THE ITEMS', state.value);
   store.dispatch('setSelectedCityWeather', state.value);
 
   cityData.value = store.state.selectedCityWeather;
-  console.log('THE CITY DATA: ', store.state.selectedCityWeather);
 });
 
 const handleIconClick = (ev: Event) => {
@@ -151,6 +148,29 @@ const handleIconClick = (ev: Event) => {
   }
   .my-autocomplete.el-popper {
     background-color: #0000004d;
+    width: 300px;
+  }
+  .my-autocomplete.el-popper li {
+    padding: 4px;
+    margin: 4px;
+  }
+  .my-autocomplete.el-popper li:hover {
+    padding: 3px;
+  }
+}
+
+@media (max-width: 320px) {
+  .searchDiv {
+    padding: 6px;
+    padding-left: 5px;
+  }
+  .transparent .el-input__inner {
+    width: 200px;
+    height: 40px;
+  }
+  .my-autocomplete.el-popper {
+    background-color: #0000004d;
+    width: 260px;
   }
   .my-autocomplete.el-popper li {
     padding: 4px;
