@@ -28,26 +28,26 @@ onMounted(getWeather);
 const backgroundUrl = computed(() => {
   const weatherCondition = store.state.weatherCondition.toLowerCase(); // Convert to lower case to match the cases
   let imageUrl;
-
   switch (true) {
-    case weatherCondition.includes('stormy' || 'thunder' || 'thundery'):
+    case ['stormy', 'thunder', 'thundery'].some((condition) =>
+      weatherCondition.includes(condition)
+    ):
       imageUrl = stormy;
       break;
     case weatherCondition.includes('clear'):
       imageUrl = clear;
       break;
-
     case weatherCondition.includes('sunny'):
       imageUrl = sunny;
       break;
-
-    case weatherCondition.includes('light' || 'rain'):
+    case ['light', 'rain', 'Moderate rain'].some((condition) =>
+      weatherCondition.includes(condition)
+    ):
       imageUrl = lightRain;
       break;
     case weatherCondition.includes('overcast'):
       imageUrl = overcast;
       break;
-
     case weatherCondition.includes('cloudy'):
       imageUrl = cloudy;
       break;
@@ -55,7 +55,6 @@ const backgroundUrl = computed(() => {
     default:
       imageUrl = clear; // Default background if no match
   }
-
   return imageUrl;
 });
 </script>
@@ -79,9 +78,6 @@ const backgroundUrl = computed(() => {
     <div class="loader"></div>
   </div>
 </template>
-<!--
-background: url('./assets/weatherBg/stormy.jpg') repeat center center;
-  background-size: cover; -->
 
 <style scoped>
 .background1 {
