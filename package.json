@@ -2,6 +2,9 @@
   "name": "weatherapp",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "16.13.1"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",

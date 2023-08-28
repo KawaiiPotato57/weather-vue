@@ -19,10 +19,9 @@ const store = useStore();
 const cityDataArr = computed(() => {
   const selectedCityWeather = store.state.selectedCityWeather;
   if (selectedCityWeather) {
-    console.log('wewfwefwefwef', selectedCityWeather.current.condition.text);
     return [
       selectedCityWeather.location.name,
-      selectedCityWeather.current.temp_c,
+      selectedCityWeather.current.temp_c.toString(),
       selectedCityWeather.current.wind_dir,
       selectedCityWeather.current.wind_mph,
       selectedCityWeather.current.uv,

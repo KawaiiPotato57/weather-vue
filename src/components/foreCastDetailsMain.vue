@@ -16,7 +16,7 @@
       </div>
       <div class="detailsText">
         <div class="temperature-container">
-          <p class="temperature padding-margin">{{ temp || '00' }}&deg;</p>
+          <p class="temperature padding-margin">{{ props.temp || '00' }}&deg;</p>
         </div>
         <div class="description-container">
           <p class="description-text">
@@ -32,10 +32,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { PartlyCloudy } from '@element-plus/icons-vue';
+const tempStr = ref<string>('23');
 const props = defineProps({
   temp: String,
   icon: String
 });
+tempStr.value = props.temp?.toString() as string;
 const formattedDate = ref('');
 function formatDate(date: Date): string {
   const options: Intl.DateTimeFormatOptions = {

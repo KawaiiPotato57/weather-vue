@@ -16,20 +16,15 @@ const getWeather = async () => {
   await store.dispatch('fetchWeather');
   if (store.state.loading) {
     const selectedCityWeather = store.state.weatherCondition;
-    console.log('THE WEATHER before: ', selectedCityWeather);
 
     tempBg.value = selectedCityWeather;
-
-    console.log('THE WEATHER CONDITION: ', tempBg.value);
   } else {
     console.log('Failed the test');
   }
 };
 
 onMounted(getWeather);
-onUpdated(() => {
-  console.log('BEFORE UPDATE');
-});
+
 const backgroundUrl = computed(() => {
   const weatherCondition = store.state.weatherCondition.toLowerCase(); // Convert to lower case to match the cases
   let imageUrl;
@@ -60,7 +55,6 @@ const backgroundUrl = computed(() => {
     default:
       imageUrl = clear; // Default background if no match
   }
-  console.log('THE IMAGE', imageUrl);
 
   return imageUrl;
 });
@@ -100,7 +94,7 @@ background: url('./assets/weatherBg/stormy.jpg') repeat center center;
 
 .glass-container {
   position: absolute;
-  background: url('./assets/weatherBg/stormy.jpgjpg') no-repeat center center fixed;
+  background: url('') no-repeat center center fixed;
   background-size: 100vh;
   background-color: rgba(30, 29, 29, 0.416); /* You can adjust the opacity */
   border-radius: 10px;

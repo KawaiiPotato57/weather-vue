@@ -7,6 +7,7 @@
     <div class="tempCardContainer">
       <div class="citiesCards">
         <div class="cardWrapper" v-for="item in cityDetails" :key="item.name">
+          {{ console.log('TYPE OF : ', typeof item.temperature) }}
           <tempCardsMainVue
             :temperature="item.temperature"
             :city="item.name"
@@ -44,9 +45,8 @@ const props = defineProps({
 });
 const cityDetails = computed(() => {
   return Object.values(citiesAll.value).map((city: Weather) => ({
-    // and here
     name: city.location.name,
-    temperature: city.current.temp_c,
+    temperature: city.current.temp_c.toString(),
     line1Length: Math.floor(Math.random() * 100),
     line2Length: Math.floor(Math.random() * 100),
     lineColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
